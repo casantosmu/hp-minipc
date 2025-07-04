@@ -37,3 +37,15 @@ services:
       - ./data/slskd:/app:rw
       - /mnt/storage/media/music:/music:ro
       - /mnt/storage/media/slskd:/downloads
+
+  homer:
+    image: b4bz/homer
+    container_name: homer
+    user: "1000:1000"
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - INIT_ASSETS=1
+    volumes:
+      - ./configs/homer:/www/assets:ro

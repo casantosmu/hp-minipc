@@ -1,0 +1,15 @@
+services:
+  - name: "Serveis Multimèdia"
+    icon: "fas fa-photo-video"
+    items:
+      - name: "Jellyfin"
+        icon: "fas fa-film"
+        subtitle: "Servidor multimèdia"
+        url: "http://hp-minipc:8096"
+        target: "_blank"
+
+      - name: "slskd"
+        icon: "fas fa-music"
+        subtitle: "Client de Soulseek"
+        url: "http://hp-minipc:5030"
+        target: "_blank"
