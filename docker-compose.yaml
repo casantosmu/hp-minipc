@@ -15,3 +15,25 @@ services:
       - /dev/dri/renderD128:/dev/dri/renderD128 # use system GPU
     extra_hosts:
       - 'host.docker.internal:host-gateway' # necessary for docker healthcheck to pass if running in host network mode
+
+  slskd:
+    image: slskd/slskd
+    container_name: slskd
+    user: "1000:1000"
+    restart: unless-stopped
+    ports:
+      - 5030:5030/tcp
+      - 5031:5031/tcp
+      - 50300:50300/tcp
+    environment:
+      - SLSKD_SLSK_USERNAME=${SLSKD_SLSK_USERNAME}
+      - SLSKD_SLSK_PASSWORD=${SLSKD_SLSK_PASSWORD}
+      - SLSKD_USERNAME=${SLSKD_USERNAME}
+      - SLSKD_PASSWORD=${SLSKD_PASSWORD}
+      - SLSKD_SHARED_DIR=/music
+      - SLSKD_DOWNLOADS_DIR=/downloads/complete
+      - SLSKD_INCOMPLETE_DIR=/downloads/incomplete
+    volumes:
+      - ./data/slskd:/app:rw
+      - /mnt/storage/media/music:/music:ro
+      - /mnt/storage/media/slskd:/downloads
