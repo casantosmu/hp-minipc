@@ -61,3 +61,16 @@ services:
       - REGISTRY_LOG_LEVEL=info # default: debug
     volumes:
       - ./data/registry:/var/lib/registry
+
+  scheduler:
+    image: mcuadros/ofelia
+    container_name: scheduler
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Madrid
+    volumes:
+      - ./configs/scheduler/ofelia.ini:/etc/ofelia/config.ini:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      - registry
+    command: daemon --config=/etc/ofelia/config.ini
