@@ -49,3 +49,15 @@ services:
       - INIT_ASSETS=1
     volumes:
       - ./configs/homer:/www/assets:ro
+
+  registry:
+    image: registry
+    container_name: registry
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - OTEL_TRACES_EXPORTER=none
+      - REGISTRY_LOG_LEVEL=info # default: debug
+    volumes:
+      - ./data/registry:/var/lib/registry
