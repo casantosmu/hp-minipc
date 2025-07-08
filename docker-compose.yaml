@@ -85,3 +85,18 @@ services:
     volumes:
       - ./data/portainer:/data
       - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  glances:
+    image: nicolargo/glances:latest-full
+    container_name: glances
+    pid: host
+    privileged: true # network interface stats
+    restart: unless-stopped
+    network_mode: "host"
+    environment:
+      - GLANCES_OPT=-w # run the container in Web server mode
+      - TZ=Europe/Madrid
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/os-release:/etc/os-release:ro # display host OS detail instead of container's
+      - /mnt/storage:/mnt/storage:ro
