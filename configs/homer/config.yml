@@ -1,4 +1,19 @@
 services:
+  - name: "Servidor"
+    icon: "fas fa-server"
+    items:
+      - name: "Glances"
+        icon: "fas fa-chart-area"
+        subtitle: "Monitorització"
+        url: "http://hp-minipc:61208"
+        target: "_blank"
+
+      - name: "Portainer"
+        icon: "fab fa-docker"
+        subtitle: "Gestor de Docker"
+        url: "http://hp-minipc:9000"
+        target: "_blank"
+
   - name: "Serveis Multimèdia"
     icon: "fas fa-photo-video"
     items:
