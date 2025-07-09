@@ -14,6 +14,12 @@ services:
         url: "http://hp-minipc:9000"
         target: "_blank"
 
+      - name: "Syncthing"
+        icon: "fas fa-sync-alt"
+        subtitle: "Sincronització de fitxers"
+        url: "http://hp-minipc:8384"
+        target: "_blank"
+
   - name: "Serveis Multimèdia"
     icon: "fas fa-photo-video"
     items:
