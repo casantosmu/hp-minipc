@@ -1,0 +1,4 @@
+directory: /mnt/storage/media/music
+library: /home/carlos/hp-minipc/data/beets/musiclibrary.db
+import:
+  move: yes
