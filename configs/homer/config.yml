@@ -8,12 +8,6 @@ services:
         url: "http://hp-minipc:61208"
         target: "_blank"
 
-      - name: "Portainer"
-        icon: "fab fa-docker"
-        subtitle: "Gestor de Docker"
-        url: "http://hp-minipc:9000"
-        target: "_blank"
-
       - name: "Syncthing"
         icon: "fas fa-sync-alt"
         subtitle: "Sincronització de fitxers"
