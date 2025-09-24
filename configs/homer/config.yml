@@ -35,6 +35,12 @@ services:
         url: "http://hp-minipc:7878"
         target: "_blank"
 
+      - name: "qBittorrent"
+        icon: "fas fa-download"
+        subtitle: "Client de descàrregues"
+        url: "http://hp-minipc:8081"
+        target: "_blank"
+
       - name: "slskd"
         icon: "fas fa-music"
         subtitle: "Client de Soulseek"
