@@ -29,6 +29,12 @@ services:
         url: "http://hp-minipc:8096"
         target: "_blank"
 
+      - name: "Radarr"
+        icon: "fas fa-compact-disc"
+        subtitle: "Gestor de pel·lícules"
+        url: "http://hp-minipc:7878"
+        target: "_blank"
+
       - name: "slskd"
         icon: "fas fa-music"
         subtitle: "Client de Soulseek"
