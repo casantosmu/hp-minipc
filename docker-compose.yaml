@@ -14,7 +14,7 @@ services:
     devices:
       - /dev/dri/renderD128:/dev/dri/renderD128 # use system GPU
     extra_hosts:
-      - 'host.docker.internal:host-gateway' # necessary for docker healthcheck to pass if running in host network mode
+      - "host.docker.internal:host-gateway" # necessary for docker healthcheck to pass if running in host network mode
 
   slskd:
     image: slskd/slskd
@@ -105,3 +105,29 @@ services:
     volumes:
       - ./data/syncthing:/var/syncthing
       - /mnt/storage/synced:/synced
+
+  kopia:
+    image: kopia/kopia:latest
+    hostname: hp-minipc
+    container_name: kopia
+    user: "1000:1000"
+    restart: unless-stopped
+    ports:
+      - 51515:51515
+    command:
+      - server
+      - start
+      - --disable-csrf-token-checks
+      - --insecure
+      - --address=0.0.0.0:51515
+      - --server-username=admin
+      - --server-password=${KOPIA_SERVER_PASSWORD}
+    environment:
+      - KOPIA_PASSWORD=${KOPIA_PASSWORD}
+      - TZ=Europe/Madrid
+    volumes:
+      - ./data/kopia/config:/app/config
+      - ./data/kopia/cache:/app/cache
+      - ./data/kopia/logs:/app/logs
+      - /home/carlos/hp-minipc:/source/hp-minipc:ro
+      - /mnt/storage:/source/storage:ro
