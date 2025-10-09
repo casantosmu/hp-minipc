@@ -160,3 +160,13 @@ services:
     volumes:
       - ./data/qbittorrent:/config
       - /mnt/storage:/data
+
+  audiodeck:
+    image: casantosmu/audiodeck:latest
+    container_name: audiodeck
+    user: "1000:1000"
+    restart: unless-stopped
+    ports:
+      - "4747:4747"
+    volumes:
+      - /mnt/storage/media:/media:ro
