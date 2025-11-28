@@ -1,6 +1,6 @@
 services:
   jellyfin:
-    image: jellyfin/jellyfin
+    image: jellyfin/jellyfin:10.10.7
     container_name: jellyfin
     user: "1000:1000"
     restart: unless-stopped
@@ -17,7 +17,7 @@ services:
       - "host.docker.internal:host-gateway" # necessary for docker healthcheck to pass if running in host network mode
 
   slskd:
-    image: slskd/slskd
+    image: slskd/slskd:0.24.0
     container_name: slskd
     user: "1000:1000"
     restart: unless-stopped
@@ -39,7 +39,7 @@ services:
       - /mnt/storage/media/slskd:/downloads
 
   homer:
-    image: b4bz/homer
+    image: b4bz/homer:v25.08.1
     container_name: homer
     user: "1000:1000"
     restart: unless-stopped
@@ -51,7 +51,7 @@ services:
       - ./configs/homer:/www/assets:ro
 
   registry:
-    image: registry
+    image: registry:3.0.0
     container_name: registry
     restart: unless-stopped
     ports:
@@ -63,7 +63,7 @@ services:
       - ./data/registry:/var/lib/registry
 
   scheduler:
-    image: mcuadros/ofelia
+    image: mcuadros/ofelia:0.3.18
     container_name: scheduler
     restart: unless-stopped
     environment:
@@ -91,7 +91,7 @@ services:
       - /mnt/storage:/mnt/storage:ro
 
   syncthing:
-    image: syncthing/syncthing
+    image: syncthing/syncthing:2.0.9
     container_name: syncthing
     user: "1000:1000"
     restart: unless-stopped
@@ -107,7 +107,7 @@ services:
       - /mnt/storage/synced:/synced
 
   kopia:
-    image: kopia/kopia:latest
+    image: kopia/kopia:0.22
     hostname: hp-minipc
     container_name: kopia
     user: "1000:1000"
@@ -133,7 +133,7 @@ services:
       - /mnt/storage:/source/storage:ro
 
   radarr:
-    image: lscr.io/linuxserver/radarr:latest
+    image: lscr.io/linuxserver/radarr:5.28.0
     container_name: radarr
     restart: unless-stopped
     environment:
@@ -146,7 +146,7 @@ services:
       - /mnt/storage:/data
 
   qbittorrent:
-    image: lscr.io/linuxserver/qbittorrent:latest
+    image: lscr.io/linuxserver/qbittorrent:5.1.2
     container_name: qbittorrent
     restart: unless-stopped
     environment:
