@@ -91,7 +91,7 @@ services:
       - /mnt/storage:/mnt/storage:ro
 
   syncthing:
-    image: syncthing/syncthing:2.0.9
+    image: syncthing/syncthing:2.0.11
     container_name: syncthing
     user: "1000:1000"
     restart: unless-stopped
