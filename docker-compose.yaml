@@ -63,7 +63,7 @@ services:
       - ./data/registry:/var/lib/registry
 
   scheduler:
-    image: mcuadros/ofelia:0.3.18
+    image: mcuadros/ofelia:0.3.19
     container_name: scheduler
     restart: unless-stopped
     environment:
