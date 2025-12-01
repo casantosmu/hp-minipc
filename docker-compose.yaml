@@ -21,10 +21,7 @@ services:
     container_name: slskd
     user: "1000:1000"
     restart: unless-stopped
-    ports:
-      - 5030:5030/tcp
-      - 5031:5031/tcp
-      - 50300:50300/tcp
+    network_mode: "service:gluetun_slskd"
     environment:
       - SLSKD_SLSK_USERNAME=${SLSKD_SLSK_USERNAME}
       - SLSKD_SLSK_PASSWORD=${SLSKD_SLSK_PASSWORD}
@@ -37,6 +34,31 @@ services:
       - ./data/slskd:/app:rw
       - /mnt/storage/media/music:/music:ro
       - /mnt/storage/media/slskd:/downloads
+
+  gluetun_slskd:
+    image: qmcgaw/gluetun:v3.40.3
+    container_name: gluetun_slskd
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "5030:5030/tcp" # Slskd WebUI
+      - "5031:5031/tcp" # Slskd App
+    volumes:
+      - ./data/gluetun_slskd:/gluetun
+      - ./data/slskd:/slskd
+    environment:
+      VPN_SERVICE_PROVIDER: protonvpn
+      VPN_TYPE: wireguard
+      WIREGUARD_PRIVATE_KEY: ${WIREGUARD_PRIVATE_KEY_SLSKD}
+      VPN_PORT_FORWARDING: on
+      VPN_PORT_FORWARDING_UP_COMMAND: |
+        /bin/sh -c '
+          sed -i "s/^#\? *soulseek:/soulseek:/" /slskd/slskd.yml
+          sed -i "s/^\([[:space:]]*\)#\? *listen_port:.*/\1listen_port: $(cat /tmp/gluetun/forwarded_port)/" /slskd/slskd.yml
+        '
+    devices:
+      - /dev/net/tun:/dev/net/tun
 
   homer:
     image: b4bz/homer:v25.08.1
