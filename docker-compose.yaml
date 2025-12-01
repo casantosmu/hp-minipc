@@ -158,11 +158,10 @@ services:
     image: lscr.io/linuxserver/radarr:5.28.0
     container_name: radarr
     restart: unless-stopped
+    network_mode: "service:gluetun_qbit" # routing via VPN to bypass ISP censorship (laliga/tebas)
     environment:
       - PUID=1000
       - PGID=1000
-    ports:
-      - "7878:7878"
     volumes:
       - ./data/radarr:/config
       - /mnt/storage:/data
@@ -171,17 +170,45 @@ services:
     image: lscr.io/linuxserver/qbittorrent:5.1.2
     container_name: qbittorrent
     restart: unless-stopped
+    network_mode: "service:gluetun_qbit"
     environment:
       - PUID=1000
       - PGID=1000
       - WEBUI_PORT=8081
-    ports:
-      - "8081:8081"
-      - "6881:6881"
-      - "6881:6881/udp"
     volumes:
       - ./data/qbittorrent:/config
       - /mnt/storage:/data
+
+  gluetun_qbit:
+    image: qmcgaw/gluetun:v3.40.3
+    container_name: gluetun_qbit
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "8081:8081" # qBittorrent WebUI
+      - "7878:7878" # Radarr WebUI
+    volumes:
+      - ./data/gluetun_qbit:/gluetun
+    environment:
+      VPN_SERVICE_PROVIDER: protonvpn
+      VPN_TYPE: wireguard
+      WIREGUARD_PRIVATE_KEY: ${WIREGUARD_PRIVATE_KEY_QBIT}
+      VPN_PORT_FORWARDING: on
+      VPN_PORT_FORWARDING_UP_COMMAND: |
+        /bin/sh -c '
+          wget -O- --retry-connrefused \
+          --post-data "json={\"listen_port\":{{PORTS}},\"current_network_interface\":\"tun0\",\"random_port\":false,\"upnp\":false}" \
+          http://127.0.0.1:8081/api/v2/app/setPreferences 2>&1
+        '
+      VPN_PORT_FORWARDING_DOWN_COMMAND: |
+        /bin/sh -c '
+          wget -O- --retry-connrefused \
+          --post-data "json={\"listen_port\":0,\"current_network_interface\":\"lo\"}" \
+          http://127.0.0.1:8081/api/v2/app/setPreferences 2>&1
+        '
+    devices:
+      - /dev/net/tun:/dev/net/tun
 
   audiodeck:
     image: casantosmu/audiodeck:latest
