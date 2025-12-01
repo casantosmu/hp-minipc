@@ -61,7 +61,7 @@ services:
       - /dev/net/tun:/dev/net/tun
 
   homer:
-    image: b4bz/homer:v25.08.1
+    image: b4bz/homer:v25.11.1
     container_name: homer
     user: "1000:1000"
     restart: unless-stopped
