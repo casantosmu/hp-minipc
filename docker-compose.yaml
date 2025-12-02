@@ -98,7 +98,7 @@ services:
     command: daemon --config=/etc/ofelia/config.ini
 
   glances:
-    image: nicolargo/glances:latest-full
+    image: nicolargo/glances:4.4.1-full
     container_name: glances
     pid: host
     privileged: true # network interface stats
