@@ -31,9 +31,9 @@ services:
       - SLSKD_DOWNLOADS_DIR=/downloads/complete
       - SLSKD_INCOMPLETE_DIR=/downloads/incomplete
     volumes:
-      - ./data/slskd:/app:rw
+      - ./data/slskd:/app
       - /mnt/storage/media/music:/music:ro
-      - /mnt/storage/media/slskd:/downloads
+      - /mnt/storage/downloads/slskd:/downloads
 
   gluetun_slskd:
     image: qmcgaw/gluetun:v3.40.3
@@ -218,4 +218,5 @@ services:
     ports:
       - "4747:4747"
     volumes:
-      - /mnt/storage/media:/media:ro
+      - /mnt/storage/media:/media/media:ro
+      - /mnt/storage/downloads/slskd:/media/slskd:ro
