@@ -17,7 +17,7 @@ services:
       - "host.docker.internal:host-gateway" # necessary for docker healthcheck to pass if running in host network mode
 
   slskd:
-    image: slskd/slskd:0.24.0
+    image: slskd/slskd:0.24.1
     container_name: slskd
     user: "1000:1000"
     restart: unless-stopped
