@@ -55,7 +55,7 @@ services:
       VPN_PORT_FORWARDING_UP_COMMAND: |
         /bin/sh -c '
           sed -i "s/^#\? *soulseek:/soulseek:/" /slskd/slskd.yml
-          sed -i "s/^\([[:space:]]*\)#\? *listen_port:.*/\1listen_port: $(cat /tmp/gluetun/forwarded_port)/" /slskd/slskd.yml
+          sed -i "s/^\([[:space:]]*\)#\? *listen_port:.*/\1listen_port: {{PORTS}}" /slskd/slskd.yml
         '
     devices:
       - /dev/net/tun:/dev/net/tun
