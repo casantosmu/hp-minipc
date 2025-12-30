@@ -1,4 +1,15 @@
 services:
+  caddy:
+    image: caddy:2.10.2
+    container_name: caddy
+    user: "1000:1000"
+    restart: unless-stopped
+    network_mode: "host"
+    volumes:
+      - ./configs/caddy:/etc/caddy
+      - ./data/caddy/data:/data
+      - ./data/caddy/config:/config
+
   jellyfin:
     image: jellyfin/jellyfin:10.10.7
     container_name: jellyfin
