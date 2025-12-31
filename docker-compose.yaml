@@ -62,6 +62,7 @@ services:
       VPN_SERVICE_PROVIDER: protonvpn
       VPN_TYPE: wireguard
       WIREGUARD_PRIVATE_KEY: ${WIREGUARD_PRIVATE_KEY_SLSKD}
+      SERVER_COUNTRIES: Spain
       VPN_PORT_FORWARDING: on
       VPN_PORT_FORWARDING_UP_COMMAND: |
         /bin/sh -c '
@@ -205,6 +206,7 @@ services:
       VPN_SERVICE_PROVIDER: protonvpn
       VPN_TYPE: wireguard
       WIREGUARD_PRIVATE_KEY: ${WIREGUARD_PRIVATE_KEY_QBIT}
+      SERVER_COUNTRIES: Spain
       VPN_PORT_FORWARDING: on
       VPN_PORT_FORWARDING_UP_COMMAND: |
         /bin/sh -c '
