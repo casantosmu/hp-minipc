@@ -178,6 +178,18 @@ services:
       - ./data/radarr:/config
       - /mnt/storage:/data
 
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:4.0.16
+    container_name: sonarr
+    restart: unless-stopped
+    network_mode: "service:gluetun_qbit" # routing via VPN to bypass ISP censorship (laliga/tebas)
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ./data/sonarr:/config
+      - /mnt/storage:/data
+
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:5.1.4
     container_name: qbittorrent
@@ -200,6 +212,7 @@ services:
     ports:
       - "8081:8081" # qBittorrent WebUI
       - "7878:7878" # Radarr WebUI
+      - "8989:8989" # Sonarr WebUI
     volumes:
       - ./data/gluetun_qbit:/gluetun
     environment:

@@ -35,6 +35,12 @@ services:
         url: "http://hp-minipc:7878"
         target: "_blank"
 
+      - name: "Sonarr"
+        icon: "fas fa-tv"
+        subtitle: "Gestor de sèries"
+        url: "http://hp-minipc:8989"
+        target: "_blank"
+
       - name: "qBittorrent"
         icon: "fas fa-download"
         subtitle: "Client de descàrregues"
