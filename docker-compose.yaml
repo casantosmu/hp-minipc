@@ -41,6 +41,10 @@ services:
       - SLSKD_SHARED_DIR=/music
       - SLSKD_DOWNLOADS_DIR=/downloads/complete
       - SLSKD_INCOMPLETE_DIR=/downloads/incomplete
+      - SLSKD_VPN=true
+      - SLSKD_VPN_PORT_FORWARDING=true
+      - SLSKD_VPN_GLUETUN_URL=http://localhost:8000
+      - SLSKD_VPN_GLUETUN_API_KEY=${GLUETUN_API_KEY}
     volumes:
       - ./data/slskd:/app
       - /mnt/storage/media/music:/music:ro
@@ -57,18 +61,13 @@ services:
       - "5031:5031/tcp" # Slskd App
     volumes:
       - ./data/gluetun_slskd:/gluetun
-      - ./data/slskd:/slskd
     environment:
       VPN_SERVICE_PROVIDER: protonvpn
       VPN_TYPE: wireguard
       WIREGUARD_PRIVATE_KEY: ${WIREGUARD_PRIVATE_KEY_SLSKD}
       SERVER_COUNTRIES: Spain
       VPN_PORT_FORWARDING: on
-      VPN_PORT_FORWARDING_UP_COMMAND: |
-        /bin/sh -c '
-          sed -i "s/^#\? *soulseek:/soulseek:/" /slskd/slskd.yml
-          sed -i "s/^\([[:space:]]*\)#\? *listen_port:.*/\1listen_port: {{PORTS}}/" /slskd/slskd.yml
-        '
+      HTTP_CONTROL_SERVER_AUTH_DEFAULT_ROLE: '{"auth":"apikey","apikey":"${GLUETUN_API_KEY}"}'
     devices:
       - /dev/net/tun:/dev/net/tun
 
