@@ -35,6 +35,12 @@ services:
         url: "http://hp-minipc:7878"
         target: "_blank"
 
+      - name: "Radarr 4K"
+        icon: "fas fa-compact-disc"
+        subtitle: "Gestor de pel·lícules 4K"
+        url: "http://hp-minipc:7879"
+        target: "_blank"
+
       - name: "Sonarr"
         icon: "fas fa-tv"
         subtitle: "Gestor de sèries"
