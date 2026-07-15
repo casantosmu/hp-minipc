@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+/usr/bin/docker run --rm \
+  --name github-backup \
+  --user 1000:1000 \
+  --volume /home/carlos/hp-minipc/secrets/github_token:/github_token:ro \
+  --volume /mnt/storage/backups/github:/data \
+  ghcr.io/josegonzalez/python-github-backup:0.64.0 \
+  casantosmu \
+  -f file:///github_token \
+  -o /data \
+  --repositories \
+  --private \
+  --fork
