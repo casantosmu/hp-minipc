@@ -1,0 +1,2 @@
+0 6 * * * /home/carlos/hp-minipc/scripts/github_backup.sh >> /home/carlos/hp-minipc/logs/github_backup.log 2>&1
+0 6 * * * /home/carlos/hp-minipc/scripts/backup.sh >> /home/carlos/hp-minipc/logs/backup.log 2>&1
