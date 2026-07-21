@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-set -Eeuo pipefail
+set -euo pipefail
 
 PROJECT_DIR="/home/carlos/hp-minipc"
 BACKUPS_DIR="/mnt/storage/backups"
 RESTIC_IMAGE="restic/restic:0.19.1"
+HEALTHCHECKS_URL="$(cat "${PROJECT_DIR}/secrets/healthchecks_backup_url")"
 
 run_restic() {
     /usr/bin/docker run --rm \
@@ -21,12 +22,18 @@ run_restic() {
         "$@"
 }
 
-start_services() {
+finish() {
+    local status=$?
+
     echo "Starting Docker Compose services..."
-    /usr/bin/docker compose --project-directory "${PROJECT_DIR}" start
+    /usr/bin/docker compose --project-directory "${PROJECT_DIR}" start || true
+
+    /usr/bin/curl -fsS -m 10 --retry 5 -o /dev/null "${HEALTHCHECKS_URL}/${status}" || true
+
+    exit "${status}"
 }
 
-trap start_services EXIT
+trap finish EXIT
 
 echo "Stopping Docker Compose services..."
 /usr/bin/docker compose --project-directory "${PROJECT_DIR}" stop
