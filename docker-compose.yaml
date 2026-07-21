@@ -1,6 +1,6 @@
 services:
   caddy:
-    image: caddy:2.10.2
+    image: caddy:2.11.4
     container_name: caddy
     user: "1000:1000"
     restart: unless-stopped
@@ -11,7 +11,7 @@ services:
       - ./data/caddy/config:/config
 
   jellyfin:
-    image: jellyfin/jellyfin:10.11.5
+    image: jellyfin/jellyfin:10.11.11
     container_name: jellyfin
     user: "1000:1000"
     restart: unless-stopped
@@ -28,7 +28,7 @@ services:
       - "host.docker.internal:host-gateway" # necessary for docker healthcheck to pass if running in host network mode
 
   slskd:
-    image: slskd/slskd:0.24.5
+    image: slskd/slskd:0.25.1
     container_name: slskd
     user: "1000:1000"
     restart: unless-stopped
@@ -72,7 +72,7 @@ services:
       - /dev/net/tun:/dev/net/tun
 
   homer:
-    image: b4bz/homer:v25.11.1
+    image: b4bz/homer:v26.4.2
     container_name: homer
     user: "1000:1000"
     restart: unless-stopped
@@ -84,7 +84,7 @@ services:
       - ./configs/homer:/www/assets:ro
 
   syncthing:
-    image: syncthing/syncthing:2.0.12
+    image: syncthing/syncthing:2.1.2
     container_name: syncthing
     user: "1000:1000"
     restart: unless-stopped
