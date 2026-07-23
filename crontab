@@ -1,4 +1,4 @@
-0 6 * * * /home/carlos/hp-minipc/scripts/github_backup.sh >> /home/carlos/hp-minipc/logs/github_backup.log 2>&1
-0 6 * * * /home/carlos/hp-minipc/scripts/backup.sh >> /home/carlos/hp-minipc/logs/backup.log 2>&1
-0 * * * * /home/carlos/hp-minipc/scripts/check_qbit.sh >> /home/carlos/hp-minipc/logs/check_qbit.log 2>&1
-*/5 * * * * /home/carlos/hp-minipc/scripts/check_pc.sh >> /home/carlos/hp-minipc/logs/check_pc.log 2>&1
+0   6  *  *  *  /home/carlos/hp-minipc/scripts/github_backup.sh  >>  /home/carlos/hp-minipc/logs/github_backup.log 2>&1
+30  6  *  *  *  /home/carlos/hp-minipc/scripts/backup.sh         >>  /home/carlos/hp-minipc/logs/backup.log 2>&1
+0   *  *  *  *  /home/carlos/hp-minipc/scripts/check_qbit.sh     >>  /home/carlos/hp-minipc/logs/check_qbit.log 2>&1
+*/5 *  *  *  *  /home/carlos/hp-minipc/scripts/check_pc.sh       >>  /home/carlos/hp-minipc/logs/check_pc.log 2>&1
