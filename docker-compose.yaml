@@ -137,7 +137,7 @@ services:
       - /mnt/storage:/data
 
   qbittorrent:
-    image: lscr.io/linuxserver/qbittorrent:5.1.4
+    image: lscr.io/linuxserver/qbittorrent:5.2.3
     container_name: qbittorrent
     restart: unless-stopped
     network_mode: "service:gluetun_qbit"
