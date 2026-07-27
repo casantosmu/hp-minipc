@@ -1,28 +1,13 @@
 services:
-  - name: "Servidor"
+  - name: "Serveis"
     icon: "fas fa-server"
     items:
-      - name: "Glances"
-        icon: "fas fa-chart-area"
-        subtitle: "Monitorització"
-        url: "http://hp-minipc:61208"
-        target: "_blank"
-
       - name: "Syncthing"
         icon: "fas fa-sync-alt"
         subtitle: "Sincronització de fitxers"
         url: "http://hp-minipc:8384"
         target: "_blank"
 
-      - name: "Kopia"
-        icon: "fas fa-save"
-        subtitle: "Gestor de Backups"
-        url: "http://hp-minipc:51515"
-        target: "_blank"
-
-  - name: "Serveis Multimèdia"
-    icon: "fas fa-photo-video"
-    items:
       - name: "Jellyfin"
         icon: "fas fa-film"
         subtitle: "Servidor multimèdia"
