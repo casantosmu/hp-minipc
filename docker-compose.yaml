@@ -196,14 +196,3 @@ services:
     volumes:
       - /mnt/storage/media:/media/media:ro
       - /mnt/storage/downloads/slskd:/media/slskd:ro
-
-  ddns_update:
-    image: ghcr.io/casantosmu/ddns-updater:main
-    container_name: ddns_update
-    user: "1000:1000"
-    restart: unless-stopped
-    environment:
-      - INTERVAL=5m
-      - ZONE_NAME=casantosmu.com
-      - RECORD_NAME=jellyfin.casantosmu.com
-      - API_TOKEN=${CF_API_TOKEN}
