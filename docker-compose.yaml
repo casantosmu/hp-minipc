@@ -100,7 +100,7 @@ services:
       - /mnt/storage/synced:/synced
 
   radarr:
-    image: lscr.io/linuxserver/radarr:5.28.0
+    image: lscr.io/linuxserver/radarr:6.3.0
     container_name: radarr
     restart: unless-stopped
     network_mode: "service:gluetun_qbit" # routing via VPN to bypass ISP censorship (laliga/tebas)
@@ -112,7 +112,7 @@ services:
       - /mnt/storage:/data
 
   radarr_4k:
-    image: lscr.io/linuxserver/radarr:5.28.0
+    image: lscr.io/linuxserver/radarr:6.3.0
     container_name: radarr_4k
     restart: unless-stopped
     network_mode: "service:gluetun_qbit" # routing via VPN to bypass ISP censorship (laliga/tebas)
