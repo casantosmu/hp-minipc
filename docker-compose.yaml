@@ -51,7 +51,7 @@ services:
       - /mnt/storage/downloads/slskd:/downloads
 
   gluetun_slskd:
-    image: qmcgaw/gluetun:v3.41.1
+    image: qmcgaw/gluetun:v3.41.3
     container_name: gluetun_slskd
     restart: unless-stopped
     cap_add:
@@ -150,7 +150,7 @@ services:
       - /mnt/storage/downloads/torrents:/data/downloads/torrents
 
   gluetun_qbit:
-    image: qmcgaw/gluetun:v3.41.1
+    image: qmcgaw/gluetun:v3.41.3
     container_name: gluetun_qbit
     restart: unless-stopped
     cap_add:
