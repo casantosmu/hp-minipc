@@ -22,7 +22,7 @@ result="$(
     /usr/bin/docker run --rm \
         --network "${DOCKER_NETWORK}" \
         curlimages/curl:latest \
-        -fsS -m 10 --retry 5 \
+        -fsS --max-time 20 --retry 8 --retry-delay 5 --retry-max-time 180 \
         -H "X-API-Key: ${API_KEY}" \
         "https://portpeek.onrender.com/v1/check?port=${port}"
 )"
