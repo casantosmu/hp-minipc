@@ -3,7 +3,7 @@
 set -euo pipefail
 
 PROJECT_DIR="/home/carlos/hp-minipc"
-API_TOKEN="$(cat "${PROJECT_DIR}/secrets/cloudflare_api_token")"
+API_TOKEN_FILE="${PROJECT_DIR}/secrets/cloudflare_api_token"
 HEALTHCHECKS_URL="$(cat "${PROJECT_DIR}/secrets/healthchecks_ddns_url")"
 
 finish() {
@@ -16,7 +16,8 @@ trap finish EXIT
 
 /usr/bin/docker run --rm \
     --user 1000:1000 \
-    --env ZONE_NAME=casantosmu.com \
-    --env RECORD_NAME=jellyfin.casantosmu.com \
-    --env API_TOKEN="${API_TOKEN}" \
-    ghcr.io/casantosmu/ddns-updater:main
+    --mount type=bind,src="${API_TOKEN_FILE}",dst=/run/secrets/cloudflare_api_token,ro \
+    ghcr.io/casantosmu/ddns-updater:main \
+    --zone casantosmu.com \
+    --record jellyfin.casantosmu.com \
+    --api-token-file /run/secrets/cloudflare_api_token
