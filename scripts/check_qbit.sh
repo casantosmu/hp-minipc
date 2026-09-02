@@ -10,7 +10,7 @@ API_KEY="$(cat "${PROJECT_DIR}/secrets/portpeek_api_key")"
 
 finish() {
     local status=$?
-    /usr/bin/curl -fsS -m 10 --retry 5 -o /dev/null "${HEALTHCHECKS_URL}/${status}" || true
+    /usr/bin/curl -fsSL -m 10 --retry 5 -o /dev/null "${HEALTHCHECKS_URL}/${status}" || true
     exit "${status}"
 }
 
@@ -22,7 +22,7 @@ result="$(
     /usr/bin/docker run --rm \
         --network "${DOCKER_NETWORK}" \
         curlimages/curl:latest \
-        -fsS --max-time 20 --retry 8 --retry-delay 5 --retry-max-time 180 \
+        -fsSL -m 90 --retry 1 \
         -H "X-API-Key: ${API_KEY}" \
         "https://portpeek.onrender.com/v1/check?port=${port}"
 )"
