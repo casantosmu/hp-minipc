@@ -1,8 +1,5 @@
 # Local data and secrets
 .env
 data/
+logs/
 secrets/
-
-# Runtime logs
-logs/*
-!logs/.gitkeep
