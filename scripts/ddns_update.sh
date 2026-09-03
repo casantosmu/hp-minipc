@@ -8,7 +8,7 @@ HEALTHCHECKS_URL="$(cat "${PROJECT_DIR}/secrets/healthchecks_ddns_url")"
 
 finish() {
     local status=$?
-    /usr/bin/curl -fsSL -m 10 --retry 5 -o /dev/null "${HEALTHCHECKS_URL}/${status}" || true
+    /usr/bin/curl -fsSL -m 10 --retry 5 -o /dev/null "${HEALTHCHECKS_URL}/${status}" 2> >(/usr/bin/ts '[%Y-%m-%d %H:%M:%S]' >&2) || true
     exit "${status}"
 }
 

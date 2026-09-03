@@ -28,7 +28,7 @@ finish() {
     echo "Starting Docker Compose services..."
     /usr/bin/docker compose --project-directory "${PROJECT_DIR}" start || true
 
-    /usr/bin/curl -fsSL -m 10 --retry 5 -o /dev/null "${HEALTHCHECKS_URL}/${status}" || true
+    /usr/bin/curl -fsSL -m 10 --retry 5 -o /dev/null "${HEALTHCHECKS_URL}/${status}" 2> >(/usr/bin/ts '[%Y-%m-%d %H:%M:%S]' >&2) || true
 
     exit "${status}"
 }

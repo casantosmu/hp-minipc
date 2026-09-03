@@ -10,7 +10,7 @@ API_KEY="$(cat "${PROJECT_DIR}/secrets/portpeek_api_key")"
 
 finish() {
     local status=$?
-    /usr/bin/curl -fsSL -m 10 --retry 5 -o /dev/null "${HEALTHCHECKS_URL}/${status}" || true
+    /usr/bin/curl -fsSL -m 10 --retry 5 -o /dev/null "${HEALTHCHECKS_URL}/${status}" 2> >(/usr/bin/ts '[%Y-%m-%d %H:%M:%S]' >&2) || true
     exit "${status}"
 }
 
@@ -24,7 +24,8 @@ result="$(
         curlimages/curl:latest \
         -fsSL -m 90 --retry 1 \
         -H "X-API-Key: ${API_KEY}" \
-        "https://portpeek.onrender.com/v1/check?port=${port}"
+        "https://portpeek.onrender.com/v1/check?port=${port}" \
+        2> >(/usr/bin/ts '[%Y-%m-%d %H:%M:%S]' >&2)
 )"
 
 if [[ "$result" != "OPEN" ]]; then
