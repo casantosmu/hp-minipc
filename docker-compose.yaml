@@ -27,50 +27,6 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway" # necessary for docker healthcheck to pass if running in host network mode
 
-  slskd:
-    image: slskd/slskd:0.25.1
-    container_name: slskd
-    user: "1000:1000"
-    restart: unless-stopped
-    network_mode: "service:gluetun_slskd"
-    environment:
-      - SLSKD_SLSK_USERNAME=${SLSKD_SLSK_USERNAME}
-      - SLSKD_SLSK_PASSWORD=${SLSKD_SLSK_PASSWORD}
-      - SLSKD_USERNAME=${SLSKD_USERNAME}
-      - SLSKD_PASSWORD=${SLSKD_PASSWORD}
-      - SLSKD_SHARED_DIR=/music
-      - SLSKD_DOWNLOADS_DIR=/downloads/complete
-      - SLSKD_INCOMPLETE_DIR=/downloads/incomplete
-      - SLSKD_VPN=true
-      - SLSKD_VPN_PORT_FORWARDING=true
-      - SLSKD_VPN_GLUETUN_URL=http://localhost:8000
-      - SLSKD_VPN_GLUETUN_API_KEY=${GLUETUN_API_KEY}
-    volumes:
-      - ./data/slskd:/app
-      - /mnt/storage/media/music:/music:ro
-      - /mnt/storage/downloads/slskd:/downloads
-
-  gluetun_slskd:
-    image: qmcgaw/gluetun:v3.41.1
-    container_name: gluetun_slskd
-    restart: unless-stopped
-    cap_add:
-      - NET_ADMIN
-    ports:
-      - "5030:5030/tcp" # Slskd WebUI
-      - "5031:5031/tcp" # Slskd App
-    volumes:
-      - ./data/gluetun_slskd:/gluetun
-    environment:
-      VPN_SERVICE_PROVIDER: protonvpn
-      VPN_TYPE: wireguard
-      WIREGUARD_PRIVATE_KEY: ${WIREGUARD_PRIVATE_KEY_SLSKD}
-      SERVER_COUNTRIES: Spain
-      VPN_PORT_FORWARDING: on
-      HTTP_CONTROL_SERVER_AUTH_DEFAULT_ROLE: '{"auth":"apikey","apikey":"${GLUETUN_API_KEY}"}'
-    devices:
-      - /dev/net/tun:/dev/net/tun
-
   homer:
     image: b4bz/homer:v26.4.2
     container_name: homer
@@ -183,14 +139,3 @@ services:
         '
     devices:
       - /dev/net/tun:/dev/net/tun
-
-  audiodeck:
-    image: casantosmu/audiodeck:latest
-    container_name: audiodeck
-    user: "1000:1000"
-    restart: unless-stopped
-    ports:
-      - "4747:4747"
-    volumes:
-      - /mnt/storage/media:/media/media:ro
-      - /mnt/storage/downloads/slskd:/media/slskd:ro

@@ -37,15 +37,3 @@ services:
         subtitle: "Client de descàrregues"
         url: "http://hp-minipc:8081"
         target: "_blank"
-
-      - name: "slskd"
-        icon: "fas fa-music"
-        subtitle: "Client de Soulseek"
-        url: "http://hp-minipc:5030"
-        target: "_blank"
-
-      - name: "Audiodeck"
-        icon: "fas fa-wave-square"
-        subtitle: "Analitzador d'espectre d'àudio"
-        url: "http://hp-minipc:4747"
-        target: "_blank"
