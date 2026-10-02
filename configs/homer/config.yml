@@ -37,3 +37,9 @@ services:
         subtitle: "Client de descàrregues"
         url: "http://hp-minipc:8081"
         target: "_blank"
+
+      - name: "SpotiFLAC"
+        icon: "fas fa-music"
+        subtitle: "Descàrrega de música"
+        url: "https://hp-minipc:3001"
+        target: "_blank"
