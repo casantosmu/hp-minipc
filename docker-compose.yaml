@@ -105,6 +105,23 @@ services:
       - ./data/qbittorrent:/config
       - /mnt/storage/downloads/torrents:/data/downloads/torrents
 
+  spotiflac:
+    build: ./spotiflac
+    container_name: spotiflac
+    restart: unless-stopped
+    shm_size: "1gb"
+    ports:
+      - "3001:3001"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Madrid
+    volumes:
+      - ./data/spotiflac:/config
+      - /mnt/storage/media/spotiflac:/music
+    devices:
+      - /dev/dri:/dev/dri
+
   gluetun_qbit:
     image: qmcgaw/gluetun:v3.41.1
     container_name: gluetun_qbit
