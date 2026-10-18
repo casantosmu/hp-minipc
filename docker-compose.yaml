@@ -63,6 +63,7 @@ services:
     environment:
       - USER_UID=1000
       - USER_GID=1000
+      - FORGEJO__server__SSH_PORT=222
     ports:
       - "3000:3000"
       - "222:2222"
