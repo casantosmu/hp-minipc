@@ -8,6 +8,12 @@ services:
         url: "http://hp-minipc:8384"
         target: "_blank"
 
+      - name: "Forgejo"
+        icon: "fas fa-code-branch"
+        subtitle: "Repositoris Git"
+        url: "http://hp-minipc:3000"
+        target: "_blank"
+
       - name: "Jellyfin"
         icon: "fas fa-film"
         subtitle: "Servidor multimèdia"

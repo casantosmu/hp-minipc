@@ -55,6 +55,21 @@ services:
       - ./data/syncthing:/var/syncthing
       - /mnt/storage/synced:/synced
 
+  forgejo:
+    image: codeberg.org/forgejo/forgejo:17.0.0-rootless
+    container_name: forgejo
+    user: "1000:1000"
+    restart: unless-stopped
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+    ports:
+      - "3000:3000"
+      - "222:2222"
+    volumes:
+      - ./data/forgejo:/var/lib/gitea
+      - /etc/localtime:/etc/localtime:ro
+
   radarr:
     image: lscr.io/linuxserver/radarr:5.28.0
     container_name: radarr
