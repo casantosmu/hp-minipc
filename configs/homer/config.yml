@@ -2,12 +2,6 @@ services:
   - name: "Serveis"
     icon: "fas fa-server"
     items:
-      - name: "Syncthing"
-        icon: "fas fa-sync-alt"
-        subtitle: "Sincronització de fitxers"
-        url: "http://hp-minipc:8384"
-        target: "_blank"
-
       - name: "Forgejo"
         icon: "fas fa-code-branch"
         subtitle: "Repositoris Git"

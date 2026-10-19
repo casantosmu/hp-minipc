@@ -39,22 +39,6 @@ services:
     volumes:
       - ./configs/homer:/www/assets:ro
 
-  syncthing:
-    image: syncthing/syncthing:2.1.2
-    container_name: syncthing
-    user: "1000:1000"
-    restart: unless-stopped
-    environment:
-      - TZ=Europe/Madrid
-    ports:
-      - 8384:8384
-      - 22000:22000/tcp
-      - 22000:22000/udp
-      - 21027:21027/udp
-    volumes:
-      - ./data/syncthing:/var/syncthing
-      - /mnt/storage/synced:/synced
-
   forgejo:
     image: codeberg.org/forgejo/forgejo:17.0.0-rootless
     container_name: forgejo
