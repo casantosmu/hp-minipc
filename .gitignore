@@ -3,6 +3,7 @@
 data/
 logs/
 secrets/
+archive/
 
 # Local SpotiFLAC binary
 spotiflac/*.AppImage
