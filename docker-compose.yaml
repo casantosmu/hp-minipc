@@ -121,10 +121,11 @@ services:
       - "8989:8989" # Sonarr WebUI
     volumes:
       - ./data/gluetun_qbit:/gluetun
+      - ./secrets/wireguard_private_key_qbit:/run/secrets/wireguard_private_key:ro
     environment:
       VPN_SERVICE_PROVIDER: protonvpn
       VPN_TYPE: wireguard
-      WIREGUARD_PRIVATE_KEY: ${WIREGUARD_PRIVATE_KEY_QBIT}
+      WIREGUARD_PRIVATE_KEY_SECRETFILE: /run/secrets/wireguard_private_key
       SERVER_COUNTRIES: Spain
       PORT_FORWARD_ONLY: on
       VPN_PORT_FORWARDING: on
