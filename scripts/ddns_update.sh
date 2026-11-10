@@ -16,7 +16,7 @@ trap finish EXIT
 
 /usr/bin/docker run --rm \
     --user 1000:1000 \
-    --mount type=bind,src="${API_TOKEN_FILE}",dst=/run/secrets/cloudflare_api_token,ro \
+    -v "${API_TOKEN_FILE}:/run/secrets/cloudflare_api_token:ro" \
     ghcr.io/casantosmu/ddns-updater:main \
     --zone casantosmu.com \
     --record jellyfin.casantosmu.com \
