@@ -19,8 +19,7 @@ services:
     volumes:
       - ./data/jellyfin/config:/config
       - ./data/jellyfin/cache:/cache
-      - /mnt/storage/media/movies:/media/torrentmovies:ro
-      - /mnt/storage/media/tv:/media/torrentshows:ro
+      - /mnt/storage/media:/media:ro
     group_add:
       - "992" # render group
     devices:
