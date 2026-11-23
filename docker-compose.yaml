@@ -94,23 +94,6 @@ services:
       - /mnt/storage/downloads/torrents/radarr:/data/downloads/torrents/radarr
       - /mnt/storage2/downloads/torrents/sonarr:/data/downloads/torrents/sonarr
 
-  spotiflac:
-    build: ./spotiflac
-    container_name: spotiflac
-    restart: unless-stopped
-    shm_size: "1gb"
-    ports:
-      - "3001:3001"
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Madrid
-    volumes:
-      - ./data/spotiflac:/config
-      - /mnt/storage/media/spotiflac:/music
-    devices:
-      - /dev/dri:/dev/dri
-
   gluetun_qbit:
     image: qmcgaw/gluetun:v3.41.1
     container_name: gluetun_qbit
