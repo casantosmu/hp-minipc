@@ -57,7 +57,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
 
   radarr:
-    image: lscr.io/linuxserver/radarr:6.4.4
+    image: lscr.io/linuxserver/radarr:7.0.3
     container_name: radarr
     restart: unless-stopped
     ports:
