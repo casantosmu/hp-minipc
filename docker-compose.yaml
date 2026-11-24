@@ -60,7 +60,8 @@ services:
     image: lscr.io/linuxserver/radarr:6.4.4
     container_name: radarr
     restart: unless-stopped
-    network_mode: "service:gluetun_qbit" # routing via VPN to bypass ISP censorship (laliga/tebas)
+    ports:
+      - "7878:7878"
     environment:
       - PUID=1000
       - PGID=1000
@@ -72,7 +73,8 @@ services:
     image: lscr.io/linuxserver/sonarr:4.0.20
     container_name: sonarr
     restart: unless-stopped
-    network_mode: "service:gluetun_qbit" # routing via VPN to bypass ISP censorship (laliga/tebas)
+    ports:
+      - "8989:8989"
     environment:
       - PUID=1000
       - PGID=1000
@@ -84,47 +86,16 @@ services:
     image: lscr.io/linuxserver/qbittorrent:5.3.0-libtorrentv1 # libtorrent 1.2 for many continuously seeding torrents
     container_name: qbittorrent
     restart: unless-stopped
-    network_mode: "service:gluetun_qbit"
+    ports:
+      - "8081:8081" # WebUI
+      - "6881:6881/tcp" # Keep in sync with TORRENTING_PORT and scripts/check_qbit.sh
+      - "6881:6881/udp"
     environment:
       - PUID=1000
       - PGID=1000
       - WEBUI_PORT=8081
+      - TORRENTING_PORT=6881
     volumes:
       - ./data/qbittorrent:/config
       - /mnt/storage/downloads/torrents/radarr:/data/downloads/torrents/radarr
       - /mnt/storage2/downloads/torrents/sonarr:/data/downloads/torrents/sonarr
-
-  gluetun_qbit:
-    image: qmcgaw/gluetun:v3.41.1
-    container_name: gluetun_qbit
-    restart: unless-stopped
-    cap_add:
-      - NET_ADMIN
-    ports:
-      - "8081:8081" # qBittorrent WebUI
-      - "7878:7878" # Radarr WebUI
-      - "8989:8989" # Sonarr WebUI
-    volumes:
-      - ./data/gluetun_qbit:/gluetun
-      - ./secrets/wireguard_private_key_qbit:/run/secrets/wireguard_private_key:ro
-    environment:
-      VPN_SERVICE_PROVIDER: protonvpn
-      VPN_TYPE: wireguard
-      WIREGUARD_PRIVATE_KEY_SECRETFILE: /run/secrets/wireguard_private_key
-      SERVER_COUNTRIES: Spain
-      PORT_FORWARD_ONLY: on
-      VPN_PORT_FORWARDING: on
-      VPN_PORT_FORWARDING_UP_COMMAND: |
-        /bin/sh -c '
-          wget -O- --retry-connrefused \
-          --post-data "json={\"listen_port\":{{PORTS}},\"current_network_interface\":\"tun0\",\"random_port\":false,\"upnp\":false}" \
-          http://127.0.0.1:8081/api/v2/app/setPreferences 2>&1
-        '
-      VPN_PORT_FORWARDING_DOWN_COMMAND: |
-        /bin/sh -c '
-          wget -O- --retry-connrefused \
-          --post-data "json={\"listen_port\":0,\"current_network_interface\":\"lo\"}" \
-          http://127.0.0.1:8081/api/v2/app/setPreferences 2>&1
-        '
-    devices:
-      - /dev/net/tun:/dev/net/tun

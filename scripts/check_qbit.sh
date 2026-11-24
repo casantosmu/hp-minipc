@@ -3,8 +3,7 @@
 set -euo pipefail
 
 PROJECT_DIR="/home/carlos/hp-minipc"
-DOCKER_NETWORK="container:gluetun_qbit"
-QBIT_CONFIG="${PROJECT_DIR}/data/qbittorrent/qBittorrent/qBittorrent.conf"
+QBIT_PORT=6881 # Keep in sync with docker-compose.yaml and the router's port forwarding rule.
 HEALTHCHECKS_URL="$(cat "${PROJECT_DIR}/secrets/healthchecks_qbit_url")"
 API_KEY="$(cat "${PROJECT_DIR}/secrets/portpeek_api_key")"
 
@@ -16,19 +15,15 @@ finish() {
 
 trap finish EXIT
 
-port="$(sed -n 's/^Session\\Port=//p' "$QBIT_CONFIG")"
-
 result="$(
-    /usr/bin/docker run --rm \
-        --network "${DOCKER_NETWORK}" \
-        curlimages/curl:latest \
+    /usr/bin/curl \
         -fsSL -m 90 --retry 1 \
         -H "X-API-Key: ${API_KEY}" \
-        "https://portpeek.onrender.com/v1/check?port=${port}" \
+        "https://portpeek.onrender.com/v1/check?port=${QBIT_PORT}" \
         2> >(/usr/bin/ts '[%Y-%m-%d %H:%M:%S]' >&2)
 )"
 
 if [[ "$result" != "OPEN" ]]; then
-    echo "[ERROR] Unexpected port status for port ${port}: ${result}" >&2
+    echo "[ERROR] Unexpected port status for port ${QBIT_PORT}: ${result}" >&2
     exit 1
 fi
