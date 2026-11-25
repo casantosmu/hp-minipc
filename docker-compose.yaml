@@ -40,6 +40,46 @@ services:
     volumes:
       - ./configs/homer:/www/assets:ro
 
+  beszel:
+    image: henrygd/beszel:0.21.2
+    container_name: beszel
+    restart: unless-stopped
+    environment:
+      APP_URL: http://hp-minipc:8090
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./data/beszel/hub:/beszel_data
+      - ./data/beszel/socket:/beszel_socket
+
+  beszel-agent:
+    image: henrygd/beszel-agent-intel:0.21.2
+    container_name: beszel-agent
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./data/beszel/agent:/var/lib/beszel-agent
+      - ./data/beszel/socket:/beszel_socket
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /mnt/storage/.beszel:/extra-filesystems/sdb1:ro
+      - /mnt/storage2/.beszel:/extra-filesystems/sda1:ro
+      - ./secrets/beszel_token:/run/secrets/beszel_token:ro
+      - ./secrets/beszel_key:/run/secrets/beszel_key:ro
+    environment:
+      LISTEN: /beszel_socket/beszel.sock
+      HUB_URL: http://hp-minipc:8090
+      TOKEN_FILE: /run/secrets/beszel_token
+      KEY_FILE: /run/secrets/beszel_key
+    cap_add:
+      - CAP_PERFMON
+      - SYS_RAWIO # required for S.M.A.R.T. data
+      - SYS_ADMIN # required for NVMe S.M.A.R.T. data
+    devices:
+      - /dev/dri/card0:/dev/dri/card0
+      - /dev/sda:/dev/sda
+      - /dev/sdb://dev/sdb
+      - /dev/nvme0:/dev/nvme0
+
   forgejo:
     image: codeberg.org/forgejo/forgejo:17.0.2-rootless
     container_name: forgejo

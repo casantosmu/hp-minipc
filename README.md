@@ -2,6 +2,6 @@
 
 Infrastructure-as-code for a personal media server running on an HP Mini PC.
 
-Docker Compose runs Jellyfin, Sonarr, Radarr, qBittorrent, Forgejo and a small Homer dashboard. Caddy exposes Jellyfin over HTTPS.
+Docker Compose runs Jellyfin, Sonarr, Radarr, qBittorrent, Forgejo, Beszel and a small Homer dashboard. Caddy exposes Jellyfin over HTTPS.
 
 The repository also contains lightweight Bash automation for backups, dynamic DNS and service health checks. Persistent data and secrets are intentionally excluded from Git.
