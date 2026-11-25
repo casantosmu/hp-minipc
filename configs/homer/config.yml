@@ -14,6 +14,12 @@ services:
         url: "http://hp-minipc:3000"
         target: "_blank"
 
+      - name: "Notes personals"
+        icon: "fas fa-book"
+        subtitle: "Repositori de notes en Markdown"
+        url: "http://hp-minipc:3000/carlos/personal-notes"
+        target: "_blank"
+
       - name: "Jellyfin"
         icon: "fas fa-film"
         subtitle: "Servidor multimèdia"
