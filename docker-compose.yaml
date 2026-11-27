@@ -9,7 +9,6 @@ services:
       - ./configs/caddy:/etc/caddy:ro
       - ./data/caddy/data:/data
       - ./data/caddy/config:/config
-      - /mnt/storage/downloads/aria2:/srv/packages:ro
 
   jellyfin:
     image: jellyfin/jellyfin:12.4

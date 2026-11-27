@@ -12,10 +12,3 @@ http://:8092 {
 	root * /srv/webkitty
 	file_server
 }
-
-http://:8093 {
-	root * /srv/packages
-	file_server browse {
-		hide *.aria2
-	}
-}
