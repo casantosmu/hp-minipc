@@ -7,3 +7,14 @@
 jellyfin.casantosmu.com {
 	reverse_proxy 127.0.0.1:8096
 }
+
+http://hp-minipc:8092 {
+	root * /srv/webkitty
+	file_server
+}
+
+
+http://hp-minipc:8093 {
+	root * /srv/packages
+	file_server browse
+}

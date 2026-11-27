@@ -1,6 +1,6 @@
 services:
   caddy:
-    image: caddy:2.11.9
+    build: ./caddy
     container_name: caddy
     user: "1000:1000"
     restart: unless-stopped
@@ -9,6 +9,7 @@ services:
       - ./configs/caddy:/etc/caddy:ro
       - ./data/caddy/data:/data
       - ./data/caddy/config:/config
+      - /mnt/storage/downloads/aria2:/srv/packages:ro
 
   jellyfin:
     image: jellyfin/jellyfin:12.4
