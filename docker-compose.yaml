@@ -139,3 +139,14 @@ services:
       - ./data/qbittorrent:/config
       - /mnt/storage/downloads/torrents/radarr:/data/downloads/torrents/radarr
       - /mnt/storage2/downloads/torrents/sonarr:/data/downloads/torrents/sonarr
+
+  aria2:
+    build: ./aria2
+    container_name: aria2
+    restart: unless-stopped
+    ports:
+      - "6800:6800"
+    volumes:
+      - ./configs/aria2/aria2.conf:/etc/aria2/aria2.conf:ro
+      - ./secrets/aria2_token:/run/secrets/aria2_token:ro
+      - /mnt/storage/downloads/aria2:/downloads
