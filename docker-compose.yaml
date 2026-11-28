@@ -124,7 +124,7 @@ services:
       - /mnt/storage2:/data
 
   qbittorrent:
-    image: lscr.io/linuxserver/qbittorrent:5.3.0-libtorrentv1 # libtorrent 1.2 for many continuously seeding torrents
+    image: lscr.io/linuxserver/qbittorrent:5.3.1-libtorrentv1 # libtorrent 1.2 for many continuously seeding torrents
     container_name: qbittorrent
     restart: unless-stopped
     ports:
