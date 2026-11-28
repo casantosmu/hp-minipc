@@ -1,4 +1,4 @@
-FROM alpine:3.23 AS builder
+FROM alpine:3.24 AS builder
 RUN apk add --no-cache git
 RUN git clone --depth 1 https://github.com/ArabPixel/WebKitty.git /srv/webkitty \
     && rm -rf /srv/webkitty/.git
